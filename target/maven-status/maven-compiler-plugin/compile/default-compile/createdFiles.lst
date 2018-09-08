@@ -1,0 +1,10 @@
+com\mweka\natwende\mobile\cdi\LoggerProducer.class
+com\mweka\natwende\mobile\NavigationView.class
+com\mweka\BusVO.class
+com\mweka\natwende\mobile\cdi\TwendeLogger.class
+com\mweka\natwende\mobile\util\MessageHelper.class
+com\mweka\ThemeView.class
+com\mweka\natwende\mobile\BookingMobileView.class
+com\mweka\MobileNavigationController.class
+com\mweka\natwende\mobile\NavigationHandler.class
+com\mweka\natwende\mobile\TripMobileView.class

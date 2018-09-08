@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <p:overlayPanel widgetVar="var_FlatMenuPanel" at="left" showEffect="overlay" style="background: snow;">
+        <p:commandButton icon="ui-icon-arrow-l" onclick="PF('var_FlatMenuPanel').hide();" styleClass="ui-btn-a"/>
+        <p:menu style="margin-top: 10px;">
+            <p:menuitem value="SIGN IN" 
+                        url="#" 
+                        icon="ui-icon-lock" 
+                        iconPos="left"
+                        styleClass="ui-btn-a"/>
+            
+            <p:menuitem value="HOME PAGE" 
+                        outcome="pm:home-page" 
+                        icon="ui-icon-home"
+                        iconPos="left"
+                        styleClass="ui-btn-b"/>
+            
+            <p:menuitem value="BOOK A BUS" 
+                        outcome="pm:booking-page" 
+                        icon="ui-icon-action" 
+                        iconPos="left"
+                        styleClass="ui-btn-a"/>
+            
+            <p:menuitem value="MANAGE TRIPS" 
+                        url="#" 
+                        icon="ui-icon-clock" 
+                        iconPos="left"
+                        styleClass="ui-btn-a"/>
+            
+            <p:menuitem value="MANAGE ACCOUNT" 
+                        url="#" 
+                        icon="ui-icon-user"
+                        iconPos="left"
+                        styleClass="ui-btn-a"/>
+            <!--
+            <p:menuitem value="MANAGE USERS" url="#" icon="flat-man" styleClass="ui-btn-a"/>
+            <p:menuitem value="MANAGE STATIONS" url="#" icon="flat-location" styleClass="ui-btn-a"/>
+            <p:menuitem value="MANAGE ROUTES" url="#" icon="flat-settings" styleClass="ui-btn-a"/>
+            <p:menuitem value="MANAGE OPERATORS" url="#" icon="ui-icon-star" styleClass="ui-btn-a"/>
+            -->
+            <p:menuitem value="SIGN UP" 
+                        url="#" 
+                        icon="ui-icon-edit"
+                        iconPos="left"
+                        styleClass="ui-btn-b"/>
+            
+            <p:menuitem value="SIGN OUT" 
+                        url="#" 
+                        icon="ui-icon-power" 
+                        iconPos="left"
+                        styleClass="ui-btn-d"/>
+        </p:menu>
+    </p:overlayPanel>
+    
+</ui:composition>
+

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template/templatePage.xhtml"
+                xmlns:pm="http://primefaces.org/mobile">
+    
+    <ui:define name="content">
+        
+        <!-- home page id=home-page -->
+        
+        <ui:include src="/home/homePage.xhtml" />        
+        
+        <!-- Booking page id=booking-page -->
+        <!--
+        <ui:include src="/trip/bookingNew.xhtml" />
+        -->
+        <!-- Booking dateFrom calendar page id=booking-page-calendarScreen -->
+        <!--
+        <ui:include src="/trip/bookingNewCalendar.xhtml" />
+        -->
+        <!-- Trip list page id=tripList-page -->
+        <!--
+        <ui:include src="/trip/tripList.xhtml" />
+        -->
+        <!-- Seat selection page id=seatSelection-page -->
+        <!--
+        <ui:include src="/trip/seatSelection.xhtml" />
+        -->
+        <script>
+            function isRoundTrip() {
+                if (document.getElementById('checkbox-a').checked) {
+                    alert('show btn: ' + document.getElementById('return-btn'));
+                }
+                else {
+                    alert('hide btn: ' + $('#return-btn').val());
+                }
+            }
+        </script>
+        
+    </ui:define>
+    
+</ui:composition>
+

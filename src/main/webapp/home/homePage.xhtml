@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"                
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <!--                
+    <pm:page swatch="a" styleClass="ui-page" id="home-page">
+    -->    
+        <pm:header>
+            <table width="100%">
+                <tr>
+                    <td><p:commandButton icon="ui-icon-bars" oncomplete="PF('var_FlatMenuPanel').show();"/></td>
+                    <td align="center">
+                        <h:panelGrid columns="2" width="100%">
+                            <p:inputText id="search" placeholder="Am travelling to ..." type="search" pt:data-inline="true"/>                            
+                        </h:panelGrid>
+                    </td>
+                    <td align="right">
+                        <p:button icon="ui-icon-arrow-r" pt:data-inline="true"/>
+                        <!--
+                        <p:link outcome="pm:home-page">
+                            <p:graphicImage name="images/natwende-1.png" width="35" height="35"/>
+                        </p:link>
+                        -->
+                    </td>
+                </tr>
+            </table>
+        </pm:header>    
+    
+        <pm:content styleClass="mainBgImg">
+            <h:form>
+                <div align="center" style="color: snow;">
+                    <h1 style="font-weight: bold;">Good Afternoon</h1>
+                    <h2>Sign up to enjoy the full Rewards with Natwende</h2>
+                    <h3>Get 10% discounts on early bookings &amp; free rides for every 10th ticket clocked.</h3>
+                </div>
+
+                <p:commandButton icon="ui-icon-action"
+                                 iconPos="right"
+                          styleClass="ui-btn-h"
+                          value="BOOK A TRIP"
+                          oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {reverse: true, transition: 'slide'});"/>
+
+                <p:button icon="ui-icon-lock"
+                          iconPos="right"
+                          styleClass="ui-btn-a"
+                          value="SIGN IN"
+                          outcome="pm:booking-page"/>
+
+                <div align="center" style="color: snow; font-size: smaller; font-weight: bolder;">
+                    NOT A MEMBER? <a href="#" style="color: snow;">JOIN NATWENDE REWARDS</a>
+                </div>
+            </h:form>
+        </pm:content>
+
+        <c:set var="index" value="0" />
+
+        <pm:footer fixed="true">
+            <ui:include src="/menu/footer.xhtml">
+                <ui:param name="index" value="#{index}" />
+            </ui:include>
+        </pm:footer>
+    <!--
+    </pm:page>
+    -->
+</ui:composition>
+

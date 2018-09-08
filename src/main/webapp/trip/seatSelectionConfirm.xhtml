@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+                    
+    <pm:page swatch="e" id="seatSelectionConfirm-page">
+        <pm:header>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <p:commandButton icon="ui-icon-flat-cross"
+                                         oncomplete="PrimeFaces.Mobile.navigate('#seatSelection-page', {
+                                            reverse: false,
+                                            transition: 'slideDown'
+                                         });"/>
+                    </td>
+                    <td align="center">CONFIRM SELECTED SEAT</td>
+                    <td align="right">
+                        <div class="booking-details" style="background: snow; padding: 3px; width: 100%;">
+                            <h2>Booking Details</h2>
+                            <h3>Selected seats (<span id="counter">0</span>):</h3>
+                            <ul id="selected-seats" />
+                            Total: <b>K<span id="total">0</span></b>
+                            <p:button style="margin-left: 0px;"
+                                      id="checkout"
+                                      styleClass="checkout-button"
+                                      value="Checkout >>"/>
+                            <div id="legend"/>
+                        </div> 
+                    </td>
+                </tr>
+            </table>
+        </pm:header>
+        
+        <pm:content>
+            <div class="booking-details" style="background: snow; padding: 3px; width: 100%;">
+                <h2>Booking Details</h2>
+                <h3>Selected seats (<span id="counter">0</span>):</h3>
+                <ul id="selected-seats"/>
+                Total: <b>K<span id="total">0</span></b>
+                <p:button style="margin-left: 0px;"
+                          id="checkout"
+                          styleClass="checkout-button"
+                          value="Checkout >>"/>
+                <div id="legend"/>
+            </div>
+        </pm:content>
+        
+    </pm:page>
+    
+</ui:composition>
+
