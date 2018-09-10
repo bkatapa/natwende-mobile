@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">    
+    
+    <pm:header>
+        <table width="100%">
+            <tr>
+                <td><p:commandButton icon="ui-icon-arrow-l" action="pm:home-page?transition=slide"/></td>
+                <td align="center">SIGN IN</td>
+                <td align="right">
+                    <p:link outcome="pm:home-page">
+                        <p:graphicImage name="images/natwende-1.png" width="35" height="35"/>
+                    </p:link>
+                </td>
+            </tr>
+        </table>
+    </pm:header>
+
+    <pm:content styleClass="mainBgImg" style="height: 100%;">
+        <h:form id="login-form">
+            <pm:field>
+                <p:inputText value="#{profileMobileView.selectedEntity.username}" 
+                             placeholder="Email or ID"/>
+                <p:password value="#{profileMobileView.selectedEntity.passwd}" 
+                            placeholder="Password"/>
+            </pm:field>            
+            <pm:field>
+                <p:selectBooleanCheckbox itemLabel="Keep me logged in"
+                                         pt:data-theme="c"
+                                         value="#{profileMobileView.keepSignedIn}">
+                    <p:ajax listener="#{profileMobileView.onKeepSignedIn}" update="login-form"/>
+                </p:selectBooleanCheckbox>
+                <p:commandButton icon="ui-icon-lock"
+                                     iconPos="right"
+                                     styleClass="ui-btn-a"
+                                     value="SIGN IN"
+                                     action="#{navigationHandler.registerScreen}"/>
+            </pm:field>
+            <pm:field>
+                <div align="center" style="background: snow; padding: 5px;" class="ui-corner-all">
+                    <p:link value="FORGOT YOUR LOGIN DETAILS?" />
+                </div>
+            </pm:field>
+            <pm:field>
+                <div align="center" style="background: snow; padding: 2px;">
+                    <h:outputText value="If you're not a Natwende Rewards member"/>
+                </div>            
+                <div>
+                    <p:commandButton value="SIGN UP"
+                                     process="@this"
+                                     update="signup-page"
+                                     icon="ui-icon-edit"
+                                     iconPos="right"
+                                     style="float: left;"
+                                     styleClass="ui-btn-inline"
+                                     action="pm:signup-page?transition=slideup" />
+
+                    <p:commandButton value="CONTINUE"
+                                     process="@this"
+                                     update="home-page"
+                                     id="guest-btn"
+                                     icon="ui-icon-alert"
+                                     iconPos="right"
+                                     style="float: right;"
+                                     styleClass="ui-btn-inline"
+                                     action="pm:home-page?transition=slide">
+                        <f:setPropertyActionListener target="#{profileMobileView.guest}" value="true" /> 
+                    </p:commandButton>
+                </div>
+            </pm:field>
+        </h:form>
+    </pm:content>
+    
+</ui:composition>
+
