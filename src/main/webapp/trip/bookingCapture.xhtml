@@ -1,0 +1,212 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+        
+    <!-- Step 1 -->
+    
+    <pm:page swatch="e" id="bookingCapture-step1">
+        <pm:header title="BOOKING CAPTURE 1/3" fixed="true">            
+            <p:commandButton icon="ui-icon-flat-cross"
+                             styleClass="ui-btn-right"
+                             process="@this"
+                             update="seatSelection-page"
+                             action="pm:seatSelection-page?transition=slidedown"
+                             oncomplete="PF('var_ConfirmSeatSelection').show();"/>
+        </pm:header>
+
+        <pm:content>
+            <h:form id="bookingCaptureForm-step1">
+                <p:outputPanel id="bookingCaptureFormStep1-panel">
+                    <pm:field>
+                        <p:outputLabel value="Passenger first name:" />
+                        <p:inputText value="#{bookingMobileView.selectedEntity.passengerFirstName}" />
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Passenger last name:" />
+                        <p:inputText value="#{bookingMobileView.selectedEntity.passengerLastName}" />
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Passenger email:" />
+                        <p:inputText value="#{bookingMobileView.selectedEntity.passengerEmail}" />
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Passenger address:" />
+                        <p:inputText value="#{bookingMobileView.selectedEntity.passengerAddress}" />
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Passenger contact number:" />
+                        <p:inputText value="#{bookingMobileView.selectedEntity.passengerPhoneNumber}" />
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Seat no:" />
+                        <p:inputText value="#{bookingMobileView.selectedEntity.seatNumber}" readonly="true"/>
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Fare amount:" />
+                        <p:inputNumber value="#{bookingMobileView.selectedEntity.fare}"
+                                       inputStyle="text-align: right;"
+                                       decimalPlaces="2"
+                                       thousandSeparator=","
+                                       symbol="K"/>
+                    </pm:field>
+                    <pm:field>
+                        <div style="float: right;">
+                            <h:panelGrid columns="1" columnClasses="alignCenter">
+                                <p:commandButton action="pm:bookingCapture-step2?transition=slidefade"
+                                                 process="@this, bookingCaptureForm-step1"
+                                                 update="bookingCapture-step2"
+                                                 icon="ui-icon-arrow-r"/>
+                                <h:outputText value="Next" />
+                            </h:panelGrid>
+                        </div>
+                    </pm:field>
+                </p:outputPanel>
+            </h:form>
+            
+        </pm:content>
+    </pm:page>
+    
+    <!-- Step 2 -->
+    
+    <pm:page id="bookingCapture-step2">
+        <pm:header title="BOOKING CAPTURE 2/3" fixed="true">            
+            <p:commandButton icon="ui-icon-arrow-l"
+                             styleClass="ui-btn-left"
+                             process="@this"
+                             update="bookingCapture-step1"
+                             action="pm:bookingCapture-step1?transition=slideleft"/>
+        </pm:header>
+
+        <pm:content>
+            <h:form id="bookingCaptureForm-step2">
+                <p:messages autoUpdate="true" showSummary="true" closable="true" />
+                <p:panel header="Choose payment option">
+                    <p:selectOneRadio id="payment-opts"
+                                      value="#{reservationMobileView.selectedEntity.payment.paymentOption}"
+                                      layout="responsive"
+                                      columns="3">
+                        <f:selectItems value="#{paymentMobileView.paymentOptions}"
+                                       var="p"
+                                       itemLabel="#{p.display}"
+                                       itemValue="#{p}"/>
+                        <p:ajax process="payment-opts" update="bookingCaptureForm-step2" />
+                    </p:selectOneRadio>
+                </p:panel>
+                
+                <p:panel header="Pay by visa card"
+                         style="margin-top: 10px"
+                         rendered="#{reservationMobileView.selectedEntity.payment.paymentOption eq 'VISA_CARD'}">
+                    <p:outputLabel value="Card number:" />
+                    <h:outputText value="************1234" />
+                    <p:outputLabel value="Email address:" />
+                    <h:outputText value="#{reservationMobileView.selectedEntity.customer.email}" />
+                    <p:outputLabel value="Phone number:" />
+                    <h:outputText value="#{reservationMobileView.selectedEntity.customer.contactNumber}" />
+                </p:panel>
+                
+                <pm:field>
+                    <div style="float: left;">
+                        <h:panelGrid columns="1" columnClasses="alignCenter">
+                            <p:commandButton action="pm:bookingCapture-step1?transition=slideFade&amp;reverse=true"
+                                             process="@this"
+                                             update="bookingCapture-step1"
+                                             icon="ui-icon-arrow-l"/>
+                            <h:outputText value="Prev" />
+                        </h:panelGrid>
+                    </div>
+                    <div style="float: right;">
+                        <h:panelGrid columns="1" columnClasses="alignCenter">
+                            <p:commandButton action="pm:bookingCapture-step2?transition=slidefade"
+                                             process="@this, bookingCaptureForm-step2"
+                                             update="bookingCapture-step3"
+                                             icon="ui-icon-arrow-r"/>
+                            <h:outputText value="Next" />
+                        </h:panelGrid>
+                    </div>
+                </pm:field>
+            </h:form>
+            
+        </pm:content>
+    </pm:page>
+    
+    <!-- Step 3 -->
+    
+    <pm:page id="bookingCapture-step3">
+        <pm:header title="BOOKING CAPTURE 3/3" fixed="true">
+            <p:commandButton icon="ui-icon-arrow-l"
+                             styleClass="ui-btn-left"
+                             process="@this"
+                             update="bookingCapture-step2"
+                             action="pm:bookingCapture-step2?transition=slideleft"/>
+            
+            <p:commandButton icon="ui-icon-flat-cross"
+                             styleClass="ui-btn-right"
+                             process="@this"
+                             update="seatSelection-page"
+                             action="pm:seatSelection-page?transition=slidedown"
+                             oncomplete="PF('var_ConfirmSeatSelection').show();"/>
+        </pm:header>
+
+        <pm:content>
+            <h:form id="bookingCaptureForm-step1">
+                <p:messages autoUpdate="true" showSummary="true" closable="true" />
+                
+                <p:panel header="Confirm booking">
+                    <p:panelGrid columns="2" layout="grid">
+                        <p:outputLabel value="Name:" styleClass="bold-text"/>
+                        <h:outputText value="#{bookingMobileView.selectedEntity.passengerFirstName} #{bookingMobileView.selectedEntity.passengerLastName}" />
+
+                        <p:outputLabel value="Email:" styleClass="bold-text"/>
+                        <h:outputText value="#{bookingMobileView.selectedEntity.passengerEmail}" />
+
+                        <p:outputLabel value="Address:" styleClass="bold-text"/>
+                        <h:outputText value="#{bookingMobileView.selectedEntity.passengerAddress}" />
+
+                        <p:outputLabel value="Contact number:" styleClass="bold-text"/>
+                        <h:outputText value="#{bookingMobileView.selectedEntity.passengerPhoneNumber}" />
+
+                        <p:outputLabel value="Seat no:" styleClass="bold-text"/>
+                        <h:outputText value="#{bookingMobileView.selectedEntity.seatNumber}" />
+
+                        <p:outputLabel value="Fare amount:" styleClass="bold-text"/>
+                        <h:outputText value="#{bookingMobileView.selectedEntity.fare}">
+                            <f:convertNumber currencySymbol="K" type="currency" />
+                        </h:outputText>
+
+                        <p:outputLabel value="Payment method:" styleClass="bold-text"/>
+                        <h:outputText value="#{reservationMobileView.selectedEntity.payment.paymentOption.display}" />
+                    </p:panelGrid>
+                </p:panel>
+                   
+                <pm:field>
+                    <div style="float: left;">
+                        <h:panelGrid columns="1" columnClasses="alignCenter">
+                            <p:commandButton action="pm:bookingCapture-step2?transition=slidefade"
+                                             process="@this"
+                                             update="bookingCapture-step2"
+                                             icon="ui-icon-arrow-l"/>
+                            <h:outputText value="Prev" />
+                        </h:panelGrid>
+                    </div>
+                    <div style="float: right;">
+                        <h:panelGrid columns="1" columnClasses="alignCenter">
+                            <p:commandButton action="#{reservationMobileView.bookNow}"
+                                             process="@this"
+                                             update="bookingCaptureOutcome-confirmed, bookingCaptureOutcome-pending"
+                                             icon="ui-icon-check"/>
+                            <h:outputText value="Finish" />
+                        </h:panelGrid>
+                    </div>
+                </pm:field>
+            </h:form>            
+        </pm:content>        
+    </pm:page>
+    
+</ui:composition>
