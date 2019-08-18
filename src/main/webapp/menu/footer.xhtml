@@ -1,29 +1,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui">
-                    
-    <p:tabMenu activeIndex="#{index}">
-        <p:menuitem value="HOME"
-                    icon="ui-icon-home"
-                    outcome="pm:home-page"
-                    iconPos="top"/>
-        
-        <p:menuitem value="BOOK"
-                    icon="ui-icon-action"
-                    outcome="pm:booking-page"
-                    iconPos="top"/>
-        
-        <p:menuitem value="TRIPS"
-                    icon="ui-icon-clock"
-                    url="#"
-                    iconPos="top"/>
-        
-        <p:menuitem value="ACCOUNT"
-                    icon="ui-icon-user"
-                    url="#"
-                    iconPos="top"/>
-    </p:tabMenu>
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    
+    <h:form id="footer-form">
+        <p:tabMenu activeIndex="#{index}">
+            <p:menuitem value="HOME"
+                        icon="ui-icon-home"
+                        process="@this"
+                        update="home-page"
+                        action="pm:home-page"
+                        iconPos="top"/>
+
+            <p:menuitem value="BOOK"
+                        icon="ui-icon-action"
+                        process="@this"
+                        update="booking-page"
+                        action="pm:booking-page"
+                        iconPos="top"/>
+
+            <p:menuitem value="TRIPS"
+                        icon="ui-icon-clock"
+                        url="#"
+                        iconPos="top"/>
+
+            <p:menuitem value="ACCOUNT"
+                        icon="ui-icon-user"
+                        url="#"
+                        iconPos="top"/>
+        </p:tabMenu>
+    </h:form>
     
 </ui:composition>
 

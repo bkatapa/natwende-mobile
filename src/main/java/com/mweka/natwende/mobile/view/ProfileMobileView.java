@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mweka.natwende.mobile;
+package com.mweka.natwende.mobile.view;
 
 import com.mweka.natwende.mobile.util.MessageHelper;
 import com.mweka.natwende.user.vo.UserVO;

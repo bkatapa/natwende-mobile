@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mweka.natwende.mobile;
+package com.mweka.natwende.mobile.view;
 
+import com.mweka.natwende.mobile.view.TripMobileView;
 import com.mweka.natwende.mobile.util.MessageHelper;
 import java.io.IOException;
 import java.util.Date;
@@ -31,6 +32,14 @@ public class NavigationHandler extends MessageHelper {
     
     public String bookingSearchScreen() {
         return "pm:booking-page?transition=slide";
+    }
+    
+    public String loginScreen() {
+        return "pm:login-page?transition=slide&reverse=true";
+    }
+    
+    public String registerScreen() {
+        return "pm:register-page?transition=slideUp";
     }
     
     public void onDateSelect(SelectEvent event) {

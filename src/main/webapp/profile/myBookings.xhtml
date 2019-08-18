@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <pm:page id="myBookings-page">
+        <pm:header title="MY BOOKINGS" fixed="true">            
+            <p:commandButton icon="ui-icon-flat-menu"
+                             styleClass="ui-btn-left"
+                             process="@this"
+                             update="@widget(var_FlatMenuPanel)"
+                             oncomplete="PF('var_FlatMenuPanel').show();"/>
+            
+            <p:commandButton icon="ui-icon-refresh"
+                             styleClass="ui-btn-right"
+                             process="@this"
+                             update="myBookingsPage-form:bookingList-table"/>            
+        </pm:header>
+
+        <pm:content>
+            <h:form id="myBookingsPage-form">
+                <p:dataTable value="#{bookingMobileView.entityList}"
+                             id="bookingList-table"
+                             var="entity"
+                             paginator="false"
+                             rowKey="#{entity.id}">
+                
+                    <p:column headerText="Passenger">
+                        <h:outputText value="#{entity.passengerFirstName} #{entity.passengerLastName}" />
+                    </p:column>
+                    
+                    <p:column headerText="Trip">
+                        <h:outputText value="#{entity.from} - #{entity.to} Seat##{entity.seatNumber}" />
+                    </p:column>
+                    
+                    <p:column headerText="Status">
+                        <p:commandLink process="@this"
+                                       update="myBookingDetails-page"
+                                       action="pm:myBookingDetails-page?transition=slidefade">
+                            <p:graphicImage name="images/icons/warning.png"
+                                            style="vertical-align: central;"
+                                            width="35"
+                                            height="35"
+                                            rendered="#{entity.reservation.bookingStatus eq 'PENDING'}"/>
+                            
+                            <p:graphicImage name="images/icons/green-check.jpg"
+                                            style="vertical-align: central;"
+                                            width="35"
+                                            height="35"
+                                            rendered="#{entity.reservation.bookingStatus eq 'CONFIRMED'}"/>
+                            <f:setPropertyActionListener target="#{bookingMobileView.selectedEntity}" value="#{entity}" />
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </pm:content>
+        
+        <c:set var="index" value="2" />
+        
+        <ui:include src="/menu/footer.xhtml">
+            <ui:param name="index" value="#{index}" />
+        </ui:include>
+        
+    </pm:page>
+    
+</ui:composition>

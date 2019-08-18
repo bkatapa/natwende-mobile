@@ -6,7 +6,6 @@
 package com.mweka.natwende.mobile.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.mweka.natwende.trip.search.vo.TripSearchResultVO;
 import com.mweka.natwende.trip.search.vo.TripSearchVO;
 import java.io.IOException;
@@ -48,7 +47,7 @@ public class TripMobileService implements Serializable {
     }
     
     public String fetchTripsJson(String fromTown, String toTown, Date date) throws Exception {
-        Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
+        Client client = ClientBuilder.newClient()/*.register(JacksonJsonProvider.class)*/;
         WebTarget target = client.target(BASE_URI);
         String travelDate = SDF.format(date);
         try {
@@ -71,10 +70,9 @@ public class TripMobileService implements Serializable {
     }
     
     public String fetchBusTemplateJson(String busReg, BigDecimal busFare) throws Exception {
-        Client client = ClientBuilder.newClient().register(JacksonJsonProvider.class);
-        WebTarget target = client.target(BASE_URI);
+        Client client = ClientBuilder.newClient();
         try {
-            String jsonResponse = target.path("buses")
+            String jsonResponse = client.target(BASE_URI)                    
                     .path("busReg")
                     .path(busReg)
                     .path("fareAmount")
@@ -95,6 +93,6 @@ public class TripMobileService implements Serializable {
     
     private static final String SOURCE_CLASS = TripMobileService.class.getName();
     private static final Logger LOGGER = Logger.getLogger(SOURCE_CLASS);
-    private static final URI BASE_URI = UriBuilder.fromUri("http://localhost:8080/natwende/services").build();
+    private static final String BASE_URI = "http://localhost:8080/natwende/services/trips";
     private static final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
 }

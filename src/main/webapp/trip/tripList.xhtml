@@ -8,50 +8,54 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
-                    
-    <pm:page swatch="e" id="booking-page-calendarScreen">
-        <pm:header>
-            <table width="100%">
-                <tr>
-                    <td>
-                        <p:commandButton icon="ui-icon-flat-cross"
-                                         oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
-                                            reverse: false,
-                                            transition: 'slidedown'
-                                         });"/>
-                    </td>
-                    <td align="center">LUSAKA - NDOLA</td>
-                    <td align="right">
-                        <p:link outcome="pm:home-page">
-                            <p:graphicImage name="images/natwende.ico" width="35" height="35" />
-                        </p:link>
-                    </td>
-                </tr>
-            </table>
-        </pm:header>
-        
-        <pm:content>
-            <p:dataList value="#{tripMobileView.entityList}"
-                        id="trip-dataList"
-                        var="entity"
-                        type="unordered"
-                        pt:data-inset="true"
-                        paginator="false">
-                <p:commandLink action="#{tripMobileView.viewEntity}"
-                               update="seatSelection-page"
-                               disabled="false">
-                    <div align="center">
-                        <p:graphicImage name="images/#{entity.busReg}.png" width="150" height="90"/>
-                        <hr/>
-                        <h:outputText value="#{entity.busReg} | #{entity.scheduledDepartureDate} | #{entity.scheduledDepartureTime}"/>
-                        <hr/>
-                        <h:outputText value="Seats remaining: #{entity}"/>
-                        <hr/>
-                        <p:graphicImage name="images/book-now.png" width="100" height="100"/>
-                    </div>
-                    <f:setPropertyActionListener value="#{entity}" target="#{tripMobileView.selectedEntity}"/>
-                </p:commandLink>
-            </p:dataList>
-        </pm:content>
-    </pm:page>
+
+    <pm:header fixed="true">
+        <table width="100%">
+            <tr>
+                <td>
+                    <p:link outcome="pm:home-page">
+                        <p:graphicImage name="images/natwende-1.png" width="35" height="35" />
+                    </p:link>
+                </td>
+                <td align="center">#{tripMobileView.selectedEntity.from} - #{tripMobileView.selectedEntity.to}</td>                    
+                <td align="right">
+                    <p:commandButton icon="ui-icon-delete"
+                                     oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
+                                     reverse: false,
+                                     transition: 'slidedown'
+                                     });"/>
+                </td>
+            </tr>
+        </table>
+    </pm:header>
+
+    <pm:content styleClass="mainBgImg">
+        <p:dataList value="#{tripMobileView.entityList}"
+                    id="trip-dataList"
+                    var="entity"
+                    type="unordered"
+                    pt:data-inset="true"
+                    paginator="false">
+            <!--
+            <p:commandLink action="{tripMobileView.viewEntity}"
+                           update="seatSelection-page"
+                           disabled="false">
+            -->
+            <p:commandLink action="#{tripMobileView.viewEntity}"
+                           update="trip-dataList"
+                           disabled="false"
+                           style="margin-bottom: 10px;">
+                <div align="center">
+                    <p:graphicImage name="images/bus/#{entity.busReg}.png" width="150" height="90"/>
+                    <br/>
+                    <h:outputText value="#{entity.busReg} | 06:00 AM | #{entity.scheduledDepartureDate}"/>
+                    <br/>
+                    <h:outputText value="Seats remaining: #{entity.availableNumOfSeats}"/>
+                    <br/>
+                    <p:graphicImage name="images/book-now.png" width="100" height="100"/>
+                </div>
+                <f:setPropertyActionListener value="#{entity}" target="#{tripMobileView.selectedEntity}"/>
+            </p:commandLink>
+        </p:dataList>
+    </pm:content>
 </ui:composition>

@@ -25,10 +25,10 @@
         <h:outputStylesheet library="css" name="carousel.custom.css" /> -->
         <h:outputStylesheet library="css" name="natwende.css" />
     </h:head>
-    <h:body>        
-        <pm:page swatch="a" id="home-page">
-            <ui:include src="/home/homePage.xhtml" />
-        </pm:page>
+    <h:body>       
+        <!-- Home Page id="home-page" -->
+        <ui:include src="/home/homePage.xhtml" />
+        
         
         <pm:page swatch="a" id="booking-page">
             <ui:include src="/trip/bookingNew.xhtml" />
@@ -42,16 +42,23 @@
             <ui:include src="/trip/bookingNewTown.xhtml" />
         </pm:page>
         
-        <!--
         <pm:page swatch="a" id="tripList-page">
             <ui:include src="/trip/tripList.xhtml" />
         </pm:page>
         
+        <pm:page swatch="a" id="login-page">
+            <ui:include src="/public/login.xhtml"/>
+        </pm:page>
+        
+        <pm:page swatch="a" id="signup-page">
+            <ui:include src="/public/signup.xhtml"/>
+        </pm:page>
+        <!--
         <pm:page swatch="a" id="profileView-page">
             <ui:include src="/profile/profileView.xhtml"/>
         </pm:page>
         -->
-        <ui:include src="/menu/overlay.xhtml" />
+        
         <!--
         <h:outputScript library="js" name="carousel.js" />        
         <h:outputScript library="js" name="waves.min.js" />

@@ -5,13 +5,14 @@
                 xmlns:pm="http://primefaces.org/mobile"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 
     <pm:header>
         <table width="100%">
             <tr>
-                <td align="right">
+                <td align="left">
                     <p:link outcome="pm:home-page">
                         <p:graphicImage name="images/natwende-1.png" width="35" height="35"/>
                     </p:link>
@@ -24,12 +25,14 @@
                         <td align="center">SELECT DEPARTURE DATE</td>
                     </c:otherwise>
                 </c:choose>
-                <td>
+                <td align="right">
                     <p:commandButton icon="ui-icon-delete"
                                      oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
                                         reverse: false,
                                         transition: 'slidedown'
-                                     });"/>
+                                     });">
+                        <f:setPropertyActionListener target="#{tripMobileView.returnDate}" value="false"/>
+                    </p:commandButton>
                 </td>
             </tr>
         </table>
@@ -40,7 +43,8 @@
             <pm:field>
                 <p:calendar value="#{tripMobileView.travelDate}" 
                             mode="inline" 
-                            rendered="#{not tripMobileView.returnDate}">
+                            rendered="#{not tripMobileView.returnDate}"
+                            style="margin: auto;">
                     <p:ajax event="dateSelect" listener="#{tripMobileView.onDateSelect}"/>
                 </p:calendar>
                 <p:calendar value="#{tripMobileView.travelDateReturn}" 

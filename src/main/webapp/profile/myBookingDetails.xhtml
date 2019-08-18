@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pm="http://primefaces.org/mobile"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <pm:page id="myBookings-page">
+        <pm:header title="MY BOOKINGS" fixed="true">            
+            <p:commandButton action="pm:myBookings-page?transition=slidefade&amp;reverse=true"
+                             icon="ui-icon-arrow-l"
+                             styleClass="ui-btn-left"
+                             process="@this"
+                             update="myBookings-page"/>           
+        </pm:header>
+
+        <pm:content>
+            <div style="text-align: center;">
+                <p:graphicImage name="images/icons/ticket.jpg" />
+            </div>
+            <p:panelGrid columns="1" layout="grid">
+                <h:outputText value="#{bookingMobileView.selectedEntity.passengerFirstName} #{bookingMobileView.selectedEntity.passengerLastName}" />
+                <h:outputText value="#{bookingMobileView.selectedEntity.from} - #{bookingMobileView.selectedEntity.to}" />
+                <h:outputText value="#{bookingMobileView.selectedEntity.trip.scheduledDepartureDateAsString}" />
+                <h:outputText value="#{bookingMobileView.selectedEntity.fare}">
+                    <f:convertNumber type="currency" currencySymbol="K" />
+                </h:outputText>
+                <p:commandButton value="Cancel booking" icon="ui-icon-delete" styleClass="ui-btn-d" />
+                <p:commandButton value="Reschecule" icon="ui-icon-gear" />
+            </p:panelGrid>
+        </pm:content>        
+    </pm:page>
+    
+</ui:composition>

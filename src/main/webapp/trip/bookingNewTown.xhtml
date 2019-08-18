@@ -5,7 +5,8 @@
                 xmlns:pm="http://primefaces.org/mobile"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <pm:header>
         <table width="100%">
@@ -24,7 +25,9 @@
                     </c:otherwise>
                 </c:choose>
                 <td>
-                    <p:commandButton icon="ui-icon-delete" action="pm:booking-page?transition=slidedown"/>
+                    <p:commandButton icon="ui-icon-delete" action="pm:booking-page?transition=slidedown">
+                        <f:setPropertyActionListener target="#{tripMobileView.destination}" value="false"/>
+                    </p:commandButton>
                 </td>
             </tr>
         </table>
@@ -34,8 +37,11 @@
         <h:form>
             <pm:field>
                 <p:autoComplete id="searchTrip-fromTown" 
-                                value="#{tripMobileView.selectedEntity.from}" 
+                                value="#{tripMobileView.selectedEntity.from}"
+                                var="town"
                                 completeMethod="#{tripMobileView.completeTown}"
+                                itemLabel="#{town.display}"
+                                itemValue="#{town}"
                                 rendered="#{not tripMobileView.destination}">
                     <p:ajax event="itemSelect" 
                             listener="#{tripMobileView.onTownSelect}" 
@@ -43,8 +49,11 @@
                 </p:autoComplete>
                 
                 <p:autoComplete id="searchTrip-toTown" 
-                                value="#{tripMobileView.selectedEntity.to}" 
+                                value="#{tripMobileView.selectedEntity.to}"
+                                var="town"
                                 completeMethod="#{tripMobileView.completeTown}"
+                                itemLabel="#{town.display}"
+                                itemValue="#{town}"
                                 rendered="#{tripMobileView.destination}">
                     <p:ajax event="itemSelect" 
                             listener="#{tripMobileView.onTownSelect}" 

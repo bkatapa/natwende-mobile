@@ -1,21 +1,59 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:pm="http://primefaces.org/mobile"
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:pm="http://primefaces.org/mobile">
-                    
-    <pm:header fixed="true">
-        <ui:include src="/common/menu/headerMenu.xhtml" />                         
-    </pm:header>
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    
+    <pm:page id="myProfile-page">
+        <pm:header title="MY PROFILE" fixed="true">            
+            <p:commandButton icon="ui-icon-flat-menu"
+                             styleClass="ui-btn-left"
+                             process="@this"
+                             update="@widgetVar(var_FlatMenuPanel)"
+                             oncomplete="PF('var_FlatMenuPanel').show();"/>
+            
+            <p:commandButton icon="ui-icon-refresh"
+                             styleClass="ui-btn-right"
+                             process="@this"
+                             update="myProfilePage-form"/>
+        </pm:header>
 
-    <pm:content>               
-        <h1>Profile View Here</h1>
+        <pm:content>
+            <h:form id="myProfilePage-form">
+                <p:outputPanel style="text-align: center;">
+                    <p:graphicImage value="#{userMobileView.previewImage}"
+                                    style="width: 250px; height: 263px;"
+                                    styleClass="ui-corner-all" />
+                </p:outputPanel>
+                <h:panelGrid columns="2">
+                    <h:outputText value="Nrc:" />
+                    <h:outputText value="#{userMobileView.selectedEntity.nrc}" />
+                    
+                    <h:outputText value="Name:" />
+                    <h:outputText value="#{userMobileView.selectedEntity.name}" />
+                    
+                    <h:outputText value="Phone:" />
+                    <h:outputText value="#{userMobileView.selectedEntity.contactNumber}" />
+                    
+                    <h:outputText value="Address:" />
+                    <h:outputText value="#{userMobileView.selectedEntity.address}" />
+                    
+                    <h:outputText value="Email:" />
+                    <h:outputText value="#{userMobileView.selectedEntity.email}" />
+                </h:panelGrid>
+                <p:commandButton value="Edit" icon="ui-icon-edit" />
+            </h:form>
     </pm:content>
 
+        <c:set var="index" value="3" />
+        
     <pm:footer fixed="true">
-        <ui:include src="/common/menu/footerMenu.xhtml" />
+        <ui:include src="/common/menu/footerMenu.xhtml">
+            <ui:param name="index" value="#{index}" />
+        </ui:include>
     </pm:footer>
     
 </ui:composition>

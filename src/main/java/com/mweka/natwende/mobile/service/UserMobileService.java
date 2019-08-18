@@ -41,6 +41,22 @@ public class UserMobileService implements Serializable {
         return entity;
     }
     
+    public byte[] getImageBytes(UserVO entity) throws Exception {
+        Client client = ClientBuilder.newClient();
+        Response response = client.target(BASE_URL)
+                .path("image")
+                .path(String.valueOf(entity.getId()))
+                .request(MediaType.APPLICATION_JSON)
+                .get();
+        byte[] result = response.readEntity(byte[].class);
+        if (response.getStatus() == 200) {
+            response.close();
+            return result;
+        }
+        response.close();
+        throw new Exception(response.getStatusInfo().toString());
+    }
+     
     private static final String BASE_URL = "http://localhost:8080/natwende/services/users";
     private static final String CLASS_NAME = UserMobileService.class.getName();
     private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);

@@ -6,6 +6,7 @@
 package com.mweka.natwende.mobile.util;
 
 import com.mweka.natwende.trip.vo.TripVO;
+import com.mweka.natwende.types.Town;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -24,8 +25,8 @@ public class Database implements Serializable {
         defaultTrip.setId(1L);
         defaultTrip.setBusReg("ABL 949");
         defaultTrip.setOccupiedSeats(new HashSet<>());
-        defaultTrip.setFrom("Lusaka");
-        defaultTrip.setTo("Mongu");
+        defaultTrip.setFrom(Town.LUSAKA);
+        defaultTrip.setTo(Town.MONGU);
         defaultTrip.setTotalNumOfSeats(60);
         defaultTrip.setAvailableNumOfSeats(35);
         tripList.add(defaultTrip);
@@ -34,8 +35,8 @@ public class Database implements Serializable {
         trip1.setId(2L);
         trip1.setBusReg("ABV 6687");
         trip1.setOccupiedSeats(new TreeSet<>(Arrays.asList(new String[]{"1_1", "2_2", "6_1"})));
-        trip1.setFrom("Lusaka");
-        trip1.setTo("Mongu");
+        trip1.setFrom(Town.LUSAKA);
+        trip1.setTo(Town.MONGU);
         trip1.setTotalNumOfSeats(52);
         trip1.setAvailableNumOfSeats(30);
         tripList.add(trip1);
@@ -44,8 +45,8 @@ public class Database implements Serializable {
         trip2.setId(3L);
         trip2.setBusReg("ALK 2212");
         trip2.setOccupiedSeats(new TreeSet<>(Arrays.asList(new String[]{"1_4","1_5","2_1","2_2","2_4","2_5","3_1","3_2","5_5","7_2","10_1","10_4","12_1","12_2","13_2"})));
-        trip2.setFrom("Lusaka");
-        trip2.setTo("Mongu");
+        trip2.setFrom(Town.LUSAKA);
+        trip2.setTo(Town.MONGU);
         trip2.setTotalNumOfSeats(60);
         trip2.setAvailableNumOfSeats(35);
         tripList.add(trip2);

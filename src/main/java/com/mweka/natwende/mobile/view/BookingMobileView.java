@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mweka.natwende.mobile;
+package com.mweka.natwende.mobile.view;
 
 import com.mweka.natwende.mobile.util.MessageHelper;
 import com.mweka.natwende.trip.vo.BookingVO;
@@ -12,6 +12,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -58,6 +59,10 @@ public class BookingMobileView extends MessageHelper {
     
     public void loadEntityList() {
         // web service call
+    }
+    
+    public void checkout() {
+        RequestContext.getCurrentInstance().execute("PrimeFaces.Mobile.navigate('#bookingCapture-step1', {reverse: false, transition: 'slideup'});");
     }
 }
     

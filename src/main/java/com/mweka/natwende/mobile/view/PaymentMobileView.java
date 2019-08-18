@@ -7,6 +7,7 @@ package com.mweka.natwende.mobile.view;
 
 import com.mweka.natwende.mobile.util.MessageHelper;
 import com.mweka.natwende.payment.vo.PaymentVO;
+import com.mweka.natwende.types.PaymentOption;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -52,7 +53,7 @@ public class PaymentMobileView extends MessageHelper {
         this.activeIndex = activeIndex;
     }
 
-    public PaymentOptions[] getPaymentOptions() {
-        return PaymentOptions.values();
+    public PaymentOption[] getPaymentOptions() {
+        return PaymentOption.values();
     }
 }

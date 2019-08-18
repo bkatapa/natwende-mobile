@@ -12,7 +12,12 @@
         <pm:header>
             <table width="100%">
                 <tr>
-                    <td><p:commandButton icon="ui-icon-arrow-l" action="pm:home-page?transition=slide"/></td>
+                    <td><p:commandButton icon="ui-icon-arrow-l"
+                                         process="@this"
+                                         update="home-page"
+                                         action="pm:home-page?transition=slide"
+                                         styleClass="ui-btn-e"/>
+                    </td>
                     <td align="center">BOOK A TRIP</td>
                     <td align="right">
                         <p:link outcome="pm:home-page">
@@ -23,16 +28,16 @@
             </table>
         </pm:header>
         
-        <pm:content styleClass="mainBgImg">
+        <pm:content>
             <h:form id="tripSearch-form">
-                <p:link outcome="pm:home-page">
-                    <div align="center" style="background: snow; padding: 5px;">
+                <p:link outcome="pm:signup-page">
+                    <div align="center" style="background: snow; padding: 5px;" class="ui-corner-all">
                         <h4>SIGN IN TO NATWENDE REWARDS</h4>
                     </div>
                 </p:link>
                 
-                <c:set value="#{tripMobileView.selectedEntity.from}" var="fromTown" />
-                <c:set value="#{tripMobileView.selectedEntity.to}" var="toTown" />
+                <c:set value="#{tripMobileView.selectedEntity.from.display}" var="fromTown" />
+                <c:set value="#{tripMobileView.selectedEntity.to.display}" var="toTown" />
                 
                 <pm:field>
                     <p:commandButton process="@this"
@@ -82,12 +87,13 @@
                     <p:commandButton type="button"
                                      ajax="true"
                                      icon="ui-icon-search"
-                                     iconPos="right"
-                                     styleClass="ui-btn-a"
+                                     iconPos="top"
+                                     styleClass="ui-btn-g"
                                      value="SEARCH TRIP"
                                      actionListener="#{tripMobileView.searchResult}"
                                      process="@this, @form"
-                                     onclick="PrimeFaces.Mobile.navigate('#tripListPage', {
+                                     update="tripList-page"
+                                     onclick="PrimeFaces.Mobile.navigate('#tripList-page', {
                                          reverse: false,
                                          transition: 'slideup'
                                      });"/>

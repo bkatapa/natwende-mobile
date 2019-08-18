@@ -7,54 +7,83 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
-    <!--                
-    <pm:page swatch="a" styleClass="ui-page" id="home-page">
-    -->    
-        <pm:header>
+    
+    <pm:page swatch="a" 
+             id="home-page" 
+             transient="true"
+             style="background: url(#{resource['images:wallpapers/skyview.jpg']});
+                    background-repeat: no-repeat;
+                    background-position: center center;
+                    background-size: cover;">   
+        <pm:header fixed="true">
             <table width="100%">
                 <tr>
-                    <td><p:commandButton icon="ui-icon-bars" oncomplete="PF('var_FlatMenuPanel').show();"/></td>
+                    <td><p:commandButton icon="ui-icon-flat-menu"
+                                         process="@this"
+                                         update="@widgetVar(var_FlatMenuPanel)"
+                                         styleClass="ui-btn-e"
+                                         oncomplete="PF('var_FlatMenuPanel').show();"/>
+                    </td>
                     <td align="center">
-                        <h:panelGrid columns="2" width="100%">
+                        <h:form>
+                            <p:autoComplete id="homePage-searchTrip-toTown"
+                                            placeholder="Am travelling to ..." 
+                                            type="search" 
+                                            pt:data-inline="true"
+                                            value="#{tripMobileView.selectedEntity.to}"
+                                            var="t"
+                                            completeMethod="#{tripMobileView.completeTown}"
+                                            itemLabel="#{t.display}"
+                                            itemValue="#{t}"
+                                            autocomplete="false"
+                                            maxResults="10"
+                                            moreText="Keep typing for more results ...">
+                                <p:ajax event="itemSelect" 
+                                        listener="#{tripMobileView.onTownSelect}" 
+                                        update="booking-page" />
+                            </p:autoComplete>
+                            <!--
                             <p:inputText id="search" placeholder="Am travelling to ..." type="search" pt:data-inline="true"/>                            
                         </h:panelGrid>
+                            -->
+                        </h:form>
                     </td>
                     <td align="right">
-                        <p:button icon="ui-icon-arrow-r" pt:data-inline="true"/>
-                        <!--
-                        <p:link outcome="pm:home-page">
-                            <p:graphicImage name="images/natwende-1.png" width="35" height="35"/>
-                        </p:link>
-                        -->
+                        <p:commandButton icon="ui-icon-arrow-r" 
+                                  pt:data-inline="true"
+                                  onclick="PrimeFaces.Mobile.navigate('#booking-page', {reverse: true, transition: 'slide'});"/>
                     </td>
                 </tr>
             </table>
         </pm:header>    
     
-        <pm:content styleClass="mainBgImg">
+        <pm:content>
             <h:form>
-                <div align="center" style="color: snow;">
-                    <h1 style="font-weight: bold;">Good Afternoon</h1>
-                    <h2>Sign up to enjoy the full Rewards with Natwende</h2>
-                    <h3>Get 10% discounts on early bookings &amp; free rides for every 10th ticket clocked.</h3>
+                <div align="center" style="color: darkslategrey;">
+                    <h1 style="font-weight: normal;">Good Afternoon</h1>
+                    <h2 style="font-weight: normal; color: #FFC107;">Sign up to enjoy the full Rewards with Natwende</h2>
+                    <h3 style="font-weight: normal;">Get 10% discounts on early bookings &amp; free rides for every 10th ticket clocked.</h3>
                 </div>
 
                 <p:commandButton icon="ui-icon-action"
-                                 iconPos="right"
-                          styleClass="ui-btn-h"
+                                 iconPos="top"
+                          styleClass="ui-btn-g"
                           value="BOOK A TRIP"
+                          process="@this"
+                          update="booking-page"
                           oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {reverse: true, transition: 'slide'});"/>
 
-                <p:button icon="ui-icon-lock"
-                          iconPos="right"
-                          styleClass="ui-btn-a"
-                          value="SIGN IN"
-                          outcome="pm:booking-page"/>
+                <p:commandButton icon="ui-icon-lock"
+                                 iconPos="top"
+                                 style="margin-top: 25px;"
+                                 value="SIGN IN"
+                                 action="#{navigationHandler.loginScreen}"/>
 
-                <div align="center" style="color: snow; font-size: smaller; font-weight: bolder;">
-                    NOT A MEMBER? <a href="#" style="color: snow;">JOIN NATWENDE REWARDS</a>
+                <div align="center" style="color: #333333; font-size: smaller; font-weight: bolder; margin-top: 20px;">
+                    NOT A MEMBER? <a href="javascript:PrimeFaces.Mobile.navigate('#signup-page', {reverse: true, transition: 'slide'});" style="color: #FF9800;">JOIN NATWENDE REWARDS</a>
                 </div>
             </h:form>
+            <ui:include src="/common/slider.xhtml" />
         </pm:content>
 
         <c:set var="index" value="0" />
@@ -64,8 +93,9 @@
                 <ui:param name="index" value="#{index}" />
             </ui:include>
         </pm:footer>
-    <!--
+    
     </pm:page>
-    -->
+   
+    <ui:include src="/menu/overlay.xhtml" />
 </ui:composition>
 

@@ -27,51 +27,51 @@
         </table>
     </pm:header>
 
-    <pm:content styleClass="mainBgImg">
+    <pm:content>
         <h:form id="regForm-step1">
             <p:messages id="regForm-step1-msgs" showDetail="true" severity="error"/>
             
             <pm:field>
-                <h:outputLabel for="userid" value="Email: " style="color: yellow;"/>
-                <p:inputText id="userid"
+                <h:outputLabel for="userid" value="Email: "/>
+                <h:inputText id="userid"
                             required="true"
                             requiredMessage="Please supply your email id"
-                            value="#{profileMobileView.selectedEntity.username}" 
-                            placeholder="Email Id" />  
+                            value="#{profileMobileView.selectedEntity.username}"  
+                            pt:placeholder="Email Id" />  
             </pm:field>
             <pm:field>
-                <h:outputLabel for="passwd" value="Password: " style="color: yellow;"/>
-                <p:inputText id="passwd" 
+                <h:outputLabel for="passwd" value="Password: "/>
+                <h:inputText id="passwd" 
                              value="#{profileMobileView.selectedEntity.passwd}"
                              required="true"
                              requiredMessage="Password is empty"
-                             placeholder="Enter password" />
+                             pt:placeholder="Enter password" />
                 
-                <p:password id="confirm-passwd" style="margin-top: 10px;" 
+                <h:inputSecret id="confirm-passwd" style="margin-top: 10px;" 
                              value="#{profileMobileView.selectedEntity.confirmPasswd}"
                              required="true"
                              requiredMessage="Confirm password is empty"
-                             placeholder="Confirm password" />
+                             pt:placeholder="Confirm password" />
             </pm:field>
             <pm:field>
-                <h:outputLabel for="fname" value="Personal details: " style="color: yellow;"/>
-                <p:inputText id="fname" 
+                <h:outputLabel for="fname" value="Personal details: "/>
+                <h:inputText id="fname" 
                             required="true"
                             requiredMessage="Please supply first name"
                             value="#{profileMobileView.selectedEntity.firstname}" 
-                            placeholder="Enter first name" />
+                            pt:placeholder="Enter first name" />
       
-                <p:inputText id="lname" style="margin-top: 10px;" 
+                <h:inputText id="lname" style="margin-top: 10px;" 
                             required="true"
                             requiredMessage="Please supply last name"
                             value="#{profileMobileView.selectedEntity.lastname}" 
-                            placeholder="Enter last name" />
+                            pt:placeholder="Enter last name" />
                 
-                <p:inputText id="phone" style="margin-top: 10px;"
+                <h:inputText id="phone" style="margin-top: 10px;"
                              value="#{profileMobileView.selectedEntity.contactNumber}"
                              required="true"
                              requiredMessage="Invalid cell number"
-                             placeholder="Enter cell number" />
+                             pt:placeholder="Enter cell number" />
                 
                 <p:calendar id="dob-calendar" 
                             placeholder="Date of birth" 
@@ -82,27 +82,27 @@
                             styleClass="ui-btn-c"/>  
             </pm:field>
             <pm:field>
-                <h:outputLabel for="nrc" value="Your ID numbers: " style="color: yellow;"/>
-                <p:inputText id="nrc" 
+                <h:outputLabel for="nrc" value="Your ID numbers: "/>
+                <h:inputText id="nrc" 
                              value="#{profileMobileView.selectedEntity.contactNumber}"
                              required="true"
                              requiredMessage="Invalid NRC"
-                             placeholder="Enter NRC" />
+                             pt:placeholder="Enter NRC" />
                 
-                <p:inputText id="passport" style="margin-top: 10px;"
+                <h:inputText id="passport" style="margin-top: 10px;"
                              value="#{profileMobileView.selectedEntity.contactNumber}"
                              required="true"
                              requiredMessage="Invalid passport number"
-                             placeholder="Enter NRC" />  
+                             pt:placeholder="Enter NRC" />  
             </pm:field>
             
             <pm:field>
-                <h:outputLabel for="address-1" value="Address: " style="color: yellow;"/>
-                <p:inputTextarea id="address-1" 
+                <h:outputLabel for="address-1" value="Address: "/>
+                <h:inputTextarea id="address-1" 
                              value="#{profileMobileView.selectedEntity.contactNumber}"
                              required="true"
                              requiredMessage="Invalid address"
-                             placeholder="Enter address details" />  
+                             pt:placeholder="Enter address details" />  
             </pm:field>
             
             <pm:field>
@@ -122,7 +122,7 @@
                                 update=""
                                 icon="ui-icon-check"
                                 iconPos="right"
-                                styleClass="ui-btn-d"
+                                styleClass="ui-btn-g"
                                 action="pm:home-page?transition=fade" />
             </pm:field>
         </h:form>
