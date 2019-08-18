@@ -8,53 +8,56 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <pm:page swatch="a" id="booking-page-calendarScreen">
 
-    <pm:header>
-        <table width="100%">
-            <tr>
-                <td align="left">
-                    <p:link outcome="pm:home-page">
-                        <p:graphicImage name="images/natwende-1.png" width="35" height="35"/>
-                    </p:link>
-                </td>
-                <c:choose>
-                    <c:when test="#{tripMobileView.returnDate}">
-                        <td align="center">SELECT RETURN DATE</td>
-                    </c:when>
-                    <c:otherwise>
-                        <td align="center">SELECT DEPARTURE DATE</td>
-                    </c:otherwise>
-                </c:choose>
-                <td align="right">
-                    <p:commandButton icon="ui-icon-delete"
-                                     oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
-                                        reverse: false,
-                                        transition: 'slidedown'
-                                     });">
-                        <f:setPropertyActionListener target="#{tripMobileView.returnDate}" value="false"/>
-                    </p:commandButton>
-                </td>
-            </tr>
-        </table>
-    </pm:header>
+        <pm:header>
+            <table width="100%">
+                <tr>
+                    <td align="left">
+                        <p:link outcome="pm:home-page">
+                            <p:graphicImage name="images/icons/natwende-1.png" width="35" height="35"/>
+                        </p:link>
+                    </td>
+                    <c:choose>
+                        <c:when test="#{tripMobileView.returnDate}">
+                            <td align="center">SELECT RETURN DATE</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td align="center">SELECT DEPARTURE DATE</td>
+                        </c:otherwise>
+                    </c:choose>
+                    <td align="right">
+                        <p:commandButton icon="ui-icon-delete"
+                                         oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
+                                            reverse: false,
+                                            transition: 'slidedown'
+                                         });">
+                            <f:setPropertyActionListener target="#{tripMobileView.returnDate}" value="false"/>
+                        </p:commandButton>
+                    </td>
+                </tr>
+            </table>
+        </pm:header>
 
-    <pm:content>
-        <h:form>
-            <pm:field>
-                <p:calendar value="#{tripMobileView.travelDate}" 
-                            mode="inline" 
-                            rendered="#{not tripMobileView.returnDate}"
-                            style="margin: auto;">
-                    <p:ajax event="dateSelect" listener="#{tripMobileView.onDateSelect}"/>
-                </p:calendar>
-                <p:calendar value="#{tripMobileView.travelDateReturn}" 
-                            mode="inline"
-                            rendered="#{tripMobileView.returnDate}">
-                    <p:ajax event="dateSelect" listener="#{tripMobileView.onDateSelect}"/>
-                </p:calendar>
-            </pm:field>
-        </h:form>
-    </pm:content>
+        <pm:content>
+            <h:form>
+                <pm:field>
+                    <p:calendar value="#{tripMobileView.travelDate}" 
+                                mode="inline" 
+                                rendered="#{not tripMobileView.returnDate}"
+                                style="margin: auto;">
+                        <p:ajax event="dateSelect" listener="#{tripMobileView.onDateSelect}"/>
+                    </p:calendar>
+                    <p:calendar value="#{tripMobileView.travelDateReturn}" 
+                                mode="inline"
+                                rendered="#{tripMobileView.returnDate}">
+                        <p:ajax event="dateSelect" listener="#{tripMobileView.onDateSelect}"/>
+                    </p:calendar>
+                </pm:field>
+            </h:form>
+        </pm:content>
 
+    </pm:page>
+        
 </ui:composition>
 

@@ -1,70 +1,20 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:pm="http://primefaces.org/mobile"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
-    <f:view renderKitId="PRIMEFACES_MOBILE" transient="true" />
-    <h:head>
-        <title>Twende mobile</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                template="/template/templatePage.xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"                >
     
-        <h:outputStylesheet library="css" name="jquery.mobile.flatui.css" />
-       
-        <!--
-        <h:outputStylesheet library="css" name="nativedroid2.css"  />
-        -->
-        <h:outputStylesheet library="css" name="animate.css"  />
-        <h:outputStylesheet library="css" name="waves.min.css"  />
-        <!--
-        <h:outputStylesheet library="css" name="jquery.mobile.carousel.css" />
-        -->
-        <!--
-        <h:outputStylesheet library="css" name="carousel.custom.css" /> -->
-        <h:outputStylesheet library="css" name="natwende.css" />
-    </h:head>
-    <h:body>       
-        <!-- Home Page id="home-page" -->
-        <ui:include src="/home/homePage.xhtml" />
+    <ui:define name="content">       
         
+        <ui:include src="/home/homePage.xhtml" /> <!-- Home Page id="home-page" -->
+        <ui:include src="/trip/bookingNew.xhtml" />
+        <ui:include src="/trip/bookingNewCalendar.xhtml" />
+        <ui:include src="/trip/bookingNewTown.xhtml" />
+        <ui:include src="/trip/tripList.xhtml" />
+        <ui:include src="/public/login.xhtml"/>
+        <ui:include src="/public/signup.xhtml"/>       
         
-        <pm:page swatch="a" id="booking-page">
-            <ui:include src="/trip/bookingNew.xhtml" />
-        </pm:page>
-        
-        <pm:page swatch="a" id="booking-page-calendarScreen">
-            <ui:include src="/trip/bookingNewCalendar.xhtml" />
-        </pm:page>
-        
-        <pm:page swatch="a" id="booking-page-townScreen">
-            <ui:include src="/trip/bookingNewTown.xhtml" />
-        </pm:page>
-        
-        <pm:page swatch="a" id="tripList-page">
-            <ui:include src="/trip/tripList.xhtml" />
-        </pm:page>
-        
-        <pm:page swatch="a" id="login-page">
-            <ui:include src="/public/login.xhtml"/>
-        </pm:page>
-        
-        <pm:page swatch="a" id="signup-page">
-            <ui:include src="/public/signup.xhtml"/>
-        </pm:page>
-        <!--
-        <pm:page swatch="a" id="profileView-page">
-            <ui:include src="/profile/profileView.xhtml"/>
-        </pm:page>
-        -->
-        
-        <!--
-        <h:outputScript library="js" name="carousel.js" />        
-        <h:outputScript library="js" name="waves.min.js" />
-        <h:outputScript library="js" name="wow.min.js" />
-        <h:outputScript library="js" name="nativedroid2.js" />
-        -->
-    </h:body>
-</html>
+    </ui:define>
+    
+</ui:composition>
 

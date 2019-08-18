@@ -9,6 +9,7 @@ com\mweka\natwende\mobile\view\BookingMobileView.class
 com\mweka\natwende\mobile\view\ReservationMobileView.class
 com\mweka\natwende\mobile\service\ReservationMobileService$1.class
 com\mweka\natwende\mobile\view\TripMobileView.class
+com\mweka\natwende\mobile\view\UserMobileView.class
 com\mweka\natwende\mobile\view\NavigationHandler.class
 com\mweka\natwende\mobile\view\PaymentMobileView.class
 com\mweka\BusVO.class

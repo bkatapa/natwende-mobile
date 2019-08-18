@@ -9,6 +9,8 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">    
     
+    <pm:page swatch="a" id="booking-page">
+    
         <pm:header>
             <table width="100%">
                 <tr>
@@ -21,7 +23,7 @@
                     <td align="center">BOOK A TRIP</td>
                     <td align="right">
                         <p:link outcome="pm:home-page">
-                            <p:graphicImage name="images/natwende-1.png" width="35" height="35"/>
+                            <p:graphicImage name="images/icons/natwende-1.png" width="35" height="35"/>
                         </p:link>
                     </td>
                 </tr>
@@ -30,6 +32,7 @@
         
         <pm:content>
             <h:form id="tripSearch-form">
+                <p:messages autoUpdate="true" showDetail="true" closable="true"/>
                 <p:link outcome="pm:signup-page">
                     <div align="center" style="background: snow; padding: 5px;" class="ui-corner-all">
                         <h4>SIGN IN TO NATWENDE REWARDS</h4>
@@ -84,19 +87,11 @@
                     <p:ajax listener="#{tripMobileView.onRoundTrip}" update="travelDate-panel"/>
                 </p:selectBooleanCheckbox>
                 <pm:field>
-                    <p:commandButton type="button"
-                                     ajax="true"
-                                     icon="ui-icon-search"
-                                     iconPos="top"
+                    <p:commandButton iconPos="right"
                                      styleClass="ui-btn-g"
                                      value="SEARCH TRIP"
-                                     actionListener="#{tripMobileView.searchResult}"
-                                     process="@this, @form"
-                                     update="tripList-page"
-                                     onclick="PrimeFaces.Mobile.navigate('#tripList-page', {
-                                         reverse: false,
-                                         transition: 'slideup'
-                                     });"/>
+                                     actionListener="#{tripMobileView.search}"
+                                     process="@this"/>
                 </pm:field>
             </h:form>
         </pm:content>
@@ -107,7 +102,9 @@
             <ui:include src="/menu/footer.xhtml">
                 <ui:param name="index" value="#{index}" />
             </ui:include>
-        </pm:footer>   
+        </pm:footer>
+        
+    </pm:page>
     
 </ui:composition>
 

@@ -37,7 +37,7 @@ import org.primefaces.event.SelectEvent;
 @Named
 @SessionScoped
 public class TripMobileView extends MessageHelper {
-    
+        
     private List<TripVO> entityList;
     private TripVO selectedEntity;
     private TripSearchVO searchVO;
@@ -185,8 +185,16 @@ public class TripMobileView extends MessageHelper {
         logger.log(Level.CONFIG, "roundTrip is: {0}", roundTrip);
     }
     
-    public String searchResult() {
-        return "pm:tripList-page";
+    public void search() {
+        try {
+            searchResultList = tripMobileService.searchTrips(searchVO);
+            RequestContext.getCurrentInstance().update("tripList-page");
+            RequestContext.getCurrentInstance().execute("PrimeFaces.Mobile.navigate('#tripList-page', {reverse: false, transition: 'slidedown'});");
+        }
+        catch (Exception ex) {
+            onMessage("error", ex.getMessage());
+            RequestContext.getCurrentInstance().update("booking-page:tripSearch-form");
+        }
     }
     
     public String viewEntity() {

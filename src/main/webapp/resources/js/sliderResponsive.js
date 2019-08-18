@@ -30,7 +30,7 @@
     $slider.find("div:first-of-type").addClass("show");
 
     // Put .showLi on the first dot
-    $slider.find("li:first-of-type").addClass("showli")
+    $slider.find("li:first-of-type").addClass("showli");
 
      //fadeout all items except .show
     $slider.find("> div").not(".show").fadeOut();
@@ -82,7 +82,7 @@
     });
 
     //on right arrow click
-    $slider.find("> .right").click(nextSlide)
+    $slider.find("> .right").click(nextSlide);
 
     //on left arrow click
     $slider.find("> .left").click(prevSlide);

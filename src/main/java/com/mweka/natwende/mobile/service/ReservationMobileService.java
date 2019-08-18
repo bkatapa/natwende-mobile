@@ -73,7 +73,7 @@ public class ReservationMobileService implements Serializable {
                     reservation.setBookingStatus(BookingStatus.CONFIRMED);
                     updateEntity(reservation);
                     return "pm:bookingCaptureOutcome-confirmed?transition=fade";
-                case VIA_CARD : // Connect to payment gateway. Show outcome of payment.
+                case VISA_CARD : // Connect to payment gateway. Show outcome of payment.
                     break;
                 default : ;
             }
@@ -160,10 +160,10 @@ public class ReservationMobileService implements Serializable {
         BookingVO booking = reservation.getBookingList().get(0);
         UserVO customer = reservation.getCustomer();
         booking.setTrip(searchResult.getTrip());
-        booking.setAccountUser(customer.getName());
+        //booking.setAccountUser(customer.getName());
         booking.setFrom(searchResult.getFromTown().getDisplay());
         booking.setTo(searchResult.getToTown().getDisplay());
-        booking.setAccountUserEmail(customer.getEmail());
+        //booking.setAccountUserEmail(customer.getEmail());
         booking.setReservation(reservation);
     }
     
@@ -171,4 +171,5 @@ public class ReservationMobileService implements Serializable {
     private static final String CLASS_NAME = ReservationMobileService.class.getName();
     private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
     private static final SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+    
 }
