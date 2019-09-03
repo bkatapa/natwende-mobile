@@ -5,8 +5,8 @@
  */
 package com.mweka.natwende.mobile.service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mweka.natwende.mobile.util.JsonUtils;
 import com.mweka.natwende.trip.search.vo.TripSearchResultVO;
 import com.mweka.natwende.trip.search.vo.TripSearchVO;
 import com.mweka.natwende.types.Town;
@@ -35,9 +35,10 @@ public class TripMobileService implements Serializable {
     public List<TripSearchResultVO> searchTrips(TripSearchVO searchVO) throws Exception {
         List<TripSearchResultVO> resultList = Collections.emptyList();
         try {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            ObjectMapper mapper = new ObjectMapper();            
+            JsonUtils.beforeDeserialization(mapper);
             String json = fetchTripsJson(searchVO.getFromTown().name(), searchVO.getToTown().name(), searchVO.getTravelDate());
+            //System.out.println(mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json));
             resultList = mapper.readValue(json, mapper.getTypeFactory().constructCollectionType(List.class, TripSearchResultVO.class));
         }
         catch (IOException ex) {
@@ -50,8 +51,8 @@ public class TripMobileService implements Serializable {
     public static String fetchTripsJson(String fromTown, String toTown, Date date) throws Exception {
         String travelDate = SDF.format(date);
         Client client = ClientBuilder.newClient()/*.register(JacksonJsonProvider.class)*/;
+        //System.out.println("Calling server");
         Response res = client.target(BASE_URI)
-                .path("trips")
                 .path("from")
                 .path(fromTown)
                 .path("to")
@@ -70,27 +71,6 @@ public class TripMobileService implements Serializable {
         throw new Exception(errMsg);
     }
     
-    public String fetchBusTemplateJson(String busReg, BigDecimal busFare) throws Exception {
-        Client client = ClientBuilder.newClient();
-        Response res = client.target(BASE_URI)
-                .path("busReg")
-                .path(busReg)
-                .path("fareAmount")
-                .path(busFare.toPlainString())
-                .path("templateScript")
-                .path("isMobile")
-                .path(Boolean.TRUE.toString())
-                .request()
-                .accept(MediaType.APPLICATION_JSON)
-                .get();
-        String result = res.readEntity(String.class);
-        if (res.getStatus() == 200) {
-            return result;
-        }
-        String errMsg = res.getStatus() + ", " + res.getStatusInfo() + ", " + result;
-        throw new Exception(errMsg);
-    }
-    
     public static void main(String[] args) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 2019);
@@ -100,6 +80,7 @@ public class TripMobileService implements Serializable {
         String fromTown = Town.LUSAKA.getDisplay();
         String toTown = Town.NDOLA.getDisplay();
         try {
+            System.out.println("About to make a call");
             String json = fetchTripsJson(fromTown, toTown, date);
             System.out.println(json);
         }

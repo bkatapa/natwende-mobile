@@ -5,10 +5,12 @@
  */
 package com.mweka.natwende.mobile.service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mweka.natwende.mobile.util.JsonUtils;
 import com.mweka.natwende.payment.vo.PaymentVO;
 import java.io.IOException;
+import java.io.Serializable;
+import javax.inject.Named;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -20,7 +22,8 @@ import org.jboss.logging.Logger;
  *
  * @author Bell
  */
-public class PaymentMobileService {
+@Named
+public class PaymentMobileService implements Serializable {
     
     public PaymentVO updateEntity(PaymentVO entity) throws Exception {
         Client client = ClientBuilder.newClient();
@@ -35,7 +38,7 @@ public class PaymentMobileService {
         try {
             String result = response.readEntity(String.class);
             ObjectMapper mapper = new ObjectMapper();
-            mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+            JsonUtils.beforeDeserialization(mapper);
             entity = mapper.readValue(result, PaymentVO.class);
             return entity;
         }

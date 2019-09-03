@@ -5,6 +5,7 @@
  */
 package com.mweka.natwende.mobile.view;
 
+import com.mweka.natwende.mobile.service.BusMobileService;
 import com.mweka.natwende.mobile.service.TripMobileService;
 import com.mweka.natwende.mobile.util.Database;
 import com.mweka.natwende.mobile.util.MessageHelper;
@@ -51,6 +52,9 @@ public class TripMobileView extends MessageHelper {
     
     @Inject
     private TripMobileService tripMobileService;
+    
+    @Inject
+    private BusMobileService busMobileService;
      
     @PostConstruct
     public void init() {
@@ -192,12 +196,14 @@ public class TripMobileView extends MessageHelper {
             RequestContext.getCurrentInstance().execute("PrimeFaces.Mobile.navigate('#tripList-page', {reverse: false, transition: 'slidedown'});");
         }
         catch (Exception ex) {
+            //ex.printStackTrace();
             onMessage("error", ex.getMessage());
             RequestContext.getCurrentInstance().update("booking-page:tripSearch-form");
         }
     }
     
     public String viewEntity() {
+        RequestContext.getCurrentInstance().update("seatSelection-page");
         return "pm:seatSelection-page?transition=slide";
     }
     
@@ -262,9 +268,14 @@ public class TripMobileView extends MessageHelper {
         try {
             String busReg = searchResult.getTrip().getBusReg();
             BigDecimal busFare = searchResult.getStretch().getFareAmount();
-            busTemplate = tripMobileService.fetchBusTemplateJson(busReg, busFare);
+            if (busFare == null) {
+                busFare = BigDecimal.ZERO;
+            }
+            System.out.println("Getting busTemplate");
+            busTemplate = busMobileService.fetchBusTemplateJson(busReg, busFare);
+            System.out.println(busTemplate);
         }
-        catch (Exception ex) {
+        catch (Exception ex) { ex.printStackTrace();
             onMessage("error", ex.getMessage());
         }
         return busTemplate;

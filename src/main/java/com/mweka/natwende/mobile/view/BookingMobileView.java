@@ -61,7 +61,8 @@ public class BookingMobileView extends MessageHelper {
         // web service call
     }
     
-    public void checkout() {
+    public void checkout() { System.out.println("Navigating to [bookingCapture-step1]");
+        RequestContext.getCurrentInstance().update("bookingCapture-step1");
         RequestContext.getCurrentInstance().execute("PrimeFaces.Mobile.navigate('#bookingCapture-step1', {reverse: false, transition: 'slideup'});");
     }
 }

@@ -8,6 +8,9 @@ package com.mweka.natwende.mobile.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mweka.BusVO;
 import java.io.IOException;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.inject.Named;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -19,11 +22,12 @@ import org.jboss.logging.Logger;
  *
  * @author Bell
  */
-public class BusMobileService {
+@Named
+public class BusMobileService implements Serializable{
     
     public BusVO updateEntity(BusVO entity) throws Exception {
         Client client = ClientBuilder.newClient();
-        Response response = client.target(BASE_URL)
+        Response response = client.target(BASE_URI)
                 .path("create")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(entity, MediaType.APPLICATION_JSON));
@@ -42,7 +46,30 @@ public class BusMobileService {
         }
     }
     
-    private static final String BASE_URL = "http://localhost:8080/natwende/services/buses";
+    public String fetchBusTemplateJson(String busReg, BigDecimal busFare) throws Exception {
+        //System.out.println("Getting here");
+        Client client = ClientBuilder.newClient();
+        Response res = client.target(BASE_URI)
+                .path("busReg")
+                .path(busReg)
+                .path("busFare")
+                .path(busFare.toPlainString())
+                .path("templateScript")
+                //.path("isMobile")
+                //.path(Boolean.TRUE.toString())
+                .request()
+                .accept(MediaType.APPLICATION_JSON)
+                .get();
+        String result = res.readEntity(String.class);
+        System.out.println(result);
+        if (res.getStatus() == 200) {
+            return result;
+        }
+        String errMsg = res.getStatus() + ", " + res.getStatusInfo() + ", " + result;
+        throw new Exception(errMsg);
+    }
+    
+    private static final String BASE_URI = "http://localhost:8080/natwende/services/buses";
     private static final String CLASS_NAME = BusMobileService.class.getName();
     private static final Logger LOGGER = Logger.getLogger(CLASS_NAME);
     

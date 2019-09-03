@@ -14,7 +14,7 @@ import com.mweka.natwende.trip.vo.ReservationVO;
 import com.mweka.natwende.types.BookingStatus;
 import com.mweka.natwende.types.PaymentStatus;
 import com.mweka.natwende.user.vo.UserVO;
-import java.io.IOException;
+//import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import javax.inject.Inject;
@@ -112,7 +112,7 @@ public class ReservationMobileService implements Serializable {
             entity = mapper.readValue(result, ReservationVO.class);
             return entity;
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             LOGGER.debug(ex);
             throw ex;
         }

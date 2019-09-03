@@ -9,7 +9,7 @@
                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
                     
-    <pm:page swatch="e" id="seatSelection-page">
+    <pm:page swatch="a" id="seatSelection-page">
         <pm:header>
             <table width="100%">
                 <tr>
@@ -18,59 +18,76 @@
                                          oncomplete="PrimeFaces.Mobile.navigate('#tripList-page', {
                                             reverse: true,
                                             transition: 'slide'
-                                         });"/>
+                                         }); closeConnection();"/>
                     </td>
                     <td align="center">SELECT SEAT</td>
                     <td align="right">
                         <p:link outcome="pm:home-page">
-                            <p:graphicImage name="images/natwende.ico" width="35" height="35"/>
+                            <p:graphicImage name="images/icons/natwende-1.png" width="35" height="35"/>
                         </p:link>
                     </td>
                 </tr>
             </table>
         </pm:header>
         
-        <h:outputScript library="js" name="jquery.seat-charts.min.js"/>
+        <h:outputScript library="seatCharts" name="js/jquery.seat-charts.min.js" />
+        <!--
+        <h:outputScript library="js" name="jquery-3.2.1.min.js" target="head"/>
+        -->
+        <h:outputScript library="js" name="seat-updater.js"/>
+        
+        <script>
+            #{tripMobileView.busTemplate}            
+        </script>
+        <script>            
+            $(document).ready(openConnection());
+        </script>
+        <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                // updateGrowl();
+                PF('growl').show([facesmessage]);
+            }
+        </script>
         
         <pm:content>
+            <p:growl widgetVar="growl" showDetail="true" life="1500" sticky="false" severity="info,error" />
             <div style="background: snow; padding: 5px;">
-                <h:outputText value="#{tripMobileView.selectedEntity.from} - #{tripMobileView.selectedEntity.to} #{tripMobileView.selectedEntity.scheduledDepartureDate} (#{tripMobileView.selectedEntity.scheduledDepartureTime})"/>
-                <hr/>
-                <p:outputLabel value="Seats remaining: #{tripMobileView.selectedEntity.numOfSeats}"/>
+                <h:outputText value="#{tripMobileView.searchResult.fromTown.display} - #{tripMobileView.searchResult.toTown.display} #{tripMobileView.searchResult.estimatedJourneyStartDateAsString})"/>
+                <br/>
+                <p:outputLabel value="Seats remaining: #{tripMobileView.selectedEntity.availableNumOfSeats}"/>
             </div>
             <div class="container">
                 <div id="seat-map">
                     <div class="front-indicator">Front</div>
                 </div>
             </div>
-            <input type="hidden" value="#{tripMobileView.selectedEntity.id}" id="trip-id"/>
+            <input type="hidden" value="#{tripMobileView.searchResult.trip.id}" id="trip-id"/>
+            <h:form>
+                <p:remoteCommand name="updateGrowl" update="@widgetVar(growl)" />
+            </h:form>
             <p:dialog widgetVar="var_confirmSeatSelection" modal="true" styleClass="booking-details">
                 <p:ajax event="close" process="@this" listener="#{tripMobileView.onSeatSelectionDialogClose}"/>
-                <div style="background: snow; padding: 3px;">
-                    <h2>Booking Details</h2>
-                    <h3>Selected seats (<span id="counter">0</span>:)</h3>
-                    <ul id="selected-seats"/>
-                    Total: <b>K<span id="total">0</span></b>
-                    <p:button style="margin-left: 0px;"
-                              id="checkout"
-                              styleClass="checkout-button"
-                              value="Checkout >>"/>
-                    <div id="legend"/>
-                </div>
+                <h:form>
+                    <div style="background: snow; padding: 3px;">
+                        <h2>Booking Details</h2>
+                        <h3>Selected seats (<span id="counter">0</span>:)</h3>
+                        <ul id="selected-seats"/>
+                        Total: <b>K<span id="total">0</span></b>
+                        <p:commandButton style="margin-left: 0px;"
+                                         id="checkout"
+                                         styleClass="checkout-button"
+                                         value="Checkout >>"
+                                         process="@this"                                         
+                                         actionListener="#{bookingMobileView.checkout}">
+                            <f:actionListener binding="#{paymentMobileView.init()}" />
+                            <f:actionListener binding="#{reservationMobileView.init()}" />
+                            <f:actionListener binding="#{bookingMobileView.init()}" />
+                        </p:commandButton>
+                        <div id="legend"/>
+                    </div>
+                </h:form>
             </p:dialog>
         </pm:content>
-        
-        <h:outputScript library="js" name="bus-template.js"/>
-        <h:outputScript library="js" name="post-booking-data.js"/>
-        <script>
-            $(document).ready(function() {
-                openConnection();
-                updateOccupiedSeats(#{tripMobileView.selectedEntity.occupiedSeats});
-                $("#checkout").click(function() {
-                    postBookingData();
-                });
-            });
-        </script>
     </pm:page>
     
 </ui:composition>

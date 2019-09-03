@@ -11,52 +11,48 @@
     
     <pm:page swatch="a" id="tripList-page">
 
-        <pm:header fixed="true">
-            <table width="100%">
-                <tr>
-                    <td>
-                        <p:link outcome="pm:home-page">
-                            <p:graphicImage name="images/icons/natwende-1.png" width="35" height="35" />
-                        </p:link>
-                    </td>
-                    <td align="center">#{tripMobileView.selectedEntity.from} - #{tripMobileView.selectedEntity.to}</td>                    
-                    <td align="right">
-                        <p:commandButton icon="ui-icon-delete"
-                                         oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
-                                         reverse: false,
-                                         transition: 'slidedown'
+        <pm:header fixed="true" title="#{tripMobileView.searchVO.fromTown.display} - #{tripMobileView.searchVO.toTown.display}">
+            <p:commandLink action="pm:home-page"
+                           process="@this"
+                           update="home-page">
+                <p:graphicImage name="images/icons/natwende-1.png" width="18" height="18" />
+            </p:commandLink>
+            <p:commandButton icon="ui-icon-flat-cross"
+                             styleClass="ui-btn-right"
+                             oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {
+                                            reverse: false,
+                                            transition: 'slidedown'
                                          });"/>
-                    </td>
-                </tr>
-            </table>
         </pm:header>
 
-        <pm:content styleClass="mainBgImg">
-            <p:dataList value="#{tripMobileView.entityList}"
+        <pm:content>
+            <p:dataList value="#{tripMobileView.searchResultList}"
                         id="trip-dataList"
                         var="entity"
                         type="unordered"
                         pt:data-inset="true"
                         paginator="false">
-                <!--
-                <p:commandLink action="{tripMobileView.viewEntity}"
-                               update="seatSelection-page"
-                               disabled="false">
-                -->
+                
                 <p:commandLink action="#{tripMobileView.viewEntity}"
-                               update="trip-dataList"
+                               process="@this"
                                disabled="false"
                                style="margin-bottom: 10px;">
+                    
                     <div align="center">
-                        <p:graphicImage name="images/bus/#{entity.busReg}.png" width="150" height="90"/>
+                        <p:graphicImage name="images/bus/ABL 949.png" width="150" height="90"/>
                         <br/>
-                        <h:outputText value="#{entity.busReg} | 06:00 AM | #{entity.scheduledDepartureDate}"/>
+                        <h:outputText value="#{entity.trip.busReg} | #{entity.estimatedJourneyStartDateAsString}"/>
                         <br/>
-                        <h:outputText value="Seats remaining: #{entity.availableNumOfSeats}"/>
+                        <h:outputText value="Seats fare: #{entity.stretch.fareAmount}">
+                            <f:convertNumber currencySymbol="K" type="currency" />
+                        </h:outputText>
                         <br/>
+                        <h:outputText value="Seats remaining: #{entity.trip.availableNumOfSeats}" />
+                        <br />
                         <p:graphicImage name="images/book-now.png" width="100" height="100"/>
                     </div>
-                    <f:setPropertyActionListener value="#{entity}" target="#{tripMobileView.selectedEntity}"/>
+                    <f:setPropertyActionListener value="#{entity}" target="#{tripMobileView.searchResult}"/>
+                    <f:setPropertyActionListener value="#{entity.trip}" target="#{tripMobileView.selectedEntity}"/>
                 </p:commandLink>
             </p:dataList>
         </pm:content>

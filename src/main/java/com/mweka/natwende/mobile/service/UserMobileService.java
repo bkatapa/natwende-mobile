@@ -5,8 +5,8 @@
  */
 package com.mweka.natwende.mobile.service;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mweka.natwende.mobile.util.JsonUtils;
 import com.mweka.natwende.user.vo.UserVO;
 import java.io.Serializable;
 import javax.inject.Named;
@@ -36,7 +36,7 @@ public class UserMobileService implements Serializable {
         }
         String result = response.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        JsonUtils.beforeDeserialization(mapper);
         UserVO entity = mapper.readValue(result, UserVO.class);
         return entity;
     }
