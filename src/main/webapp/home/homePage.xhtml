@@ -16,39 +16,41 @@
                     background-size: cover;">
         
         <pm:header fixed="true">
-            <table width="100%">
-                <tr>
-                    <td><p:commandButton icon="ui-icon-flat-menu"
-                                         process="@this"
-                                         update="@widgetVar(var_FlatMenuPanel)"
-                                         oncomplete="PF('var_FlatMenuPanel').show();"/>
-                    </td>
-                    <td align="center">
-                        <p:autoComplete id="homePage-searchTrip-toTown"
-                                        placeholder="Am travelling to ..." 
-                                        type="search" 
-                                        pt:data-inline="true"
-                                        value="#{tripMobileView.selectedEntity.to}"
-                                        var="t"
-                                        completeMethod="#{tripMobileView.completeTown}"
-                                        itemLabel="#{t.display}"
-                                        itemValue="#{t}"
-                                        autocomplete="false"
-                                        maxResults="10"
-                                        moreText="Keep typing for more results ...">
-                            <p:ajax event="itemSelect" 
-                                    listener="#{tripMobileView.onTownSelect}"
-                                    process="homePage-searchTrip-toTown"
-                                    update="booking-page" />
-                        </p:autoComplete>
-                    </td>
-                    <td align="right">
-                        <p:link outcome="pm:home-page">
-                            <p:graphicImage name="images/icons/natwende-1.png" width="35" height="35" />
-                        </p:link>
-                    </td>
-                </tr>
-            </table>
+            <h:form>
+                <table width="100%">
+                    <tr>
+                        <td><p:commandButton icon="ui-icon-flat-menu"
+                                             process="@this"
+                                             update="@widgetVar(var_FlatMenuPanel)"
+                                             oncomplete="PF('var_FlatMenuPanel').show();"/>
+                        </td>
+                        <td align="center">
+                            <p:autoComplete id="homePage-searchTrip-toTown"
+                                            placeholder="Am travelling to ..." 
+                                            type="search" 
+                                            pt:data-inline="true"
+                                            value="#{tripMobileView.searchVO.toTown}"
+                                            var="t"
+                                            completeMethod="#{tripMobileView.completeTown}"
+                                            itemLabel="#{t.display}"
+                                            itemValue="#{t}"
+                                            autocomplete="false"
+                                            maxResults="10"
+                                            moreText="Keep typing for more results ...">
+                                <p:ajax event="itemSelect"                                    
+                                        process="homePage-searchTrip-toTown"
+                                        update="booking-page"
+                                        oncomplete="PrimeFaces.Mobile.navigate('#booking-page', {reverse: true, transition: 'slide'});"/>
+                            </p:autoComplete>
+                        </td>
+                        <td align="right">
+                            <p:link outcome="pm:home-page">
+                                <p:graphicImage name="images/icons/natwende-1.png" width="35" height="35" />
+                            </p:link>
+                        </td>
+                    </tr>
+                </table>
+            </h:form>
         </pm:header>    
     
         <pm:content>

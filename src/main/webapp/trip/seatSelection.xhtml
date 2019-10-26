@@ -28,17 +28,16 @@
                     </td>
                 </tr>
             </table>
-        </pm:header>
-        
+        </pm:header>        
+                
+        <h:outputScript library="js" name="jquery-3.2.1.min.js"/>
         <h:outputScript library="seatCharts" name="js/jquery.seat-charts.min.js" />
-        <!--
-        <h:outputScript library="js" name="jquery-3.2.1.min.js" target="head"/>
-        -->
         <h:outputScript library="js" name="seat-updater.js"/>
-        
+        <h:outputScript library="js" name="busSeats.js"/>
+        <!--
         <script>
-            #{tripMobileView.busTemplate}            
-        </script>
+            {tripMobileView.busTemplate}            
+        </script> -->
         <script>            
             $(document).ready(openConnection());
         </script>
@@ -52,7 +51,7 @@
         <pm:content>
             <p:growl widgetVar="growl" showDetail="true" life="1500" sticky="false" severity="info,error" />
             <div style="background: snow; padding: 5px;">
-                <h:outputText value="#{tripMobileView.searchResult.fromTown.display} - #{tripMobileView.searchResult.toTown.display} #{tripMobileView.searchResult.estimatedJourneyStartDateAsString})"/>
+                <h:outputText value="#{tripMobileView.searchResult.fromTown.display} - #{tripMobileView.searchResult.toTown.display} #{tripMobileView.searchResult.estimatedJourneyStartDateAsString}"/>
                 <br/>
                 <p:outputLabel value="Seats remaining: #{tripMobileView.selectedEntity.availableNumOfSeats}"/>
             </div>

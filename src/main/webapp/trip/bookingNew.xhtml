@@ -32,15 +32,15 @@
         
         <pm:content>
             <h:form id="tripSearch-form">
-                <p:messages autoUpdate="true" showDetail="true" closable="true"/>
+                <p:messages autoUpdate="true" showDetail="true" closable="true" severity="info,error"/>
                 <p:link outcome="pm:signup-page">
                     <div align="center" style="background: snow; padding: 5px;" class="ui-corner-all">
                         <h4>SIGN IN TO NATWENDE REWARDS</h4>
                     </div>
                 </p:link>
                 
-                <c:set value="#{tripMobileView.selectedEntity.from.display}" var="fromTown" />
-                <c:set value="#{tripMobileView.selectedEntity.to.display}" var="toTown" />
+                <c:set value="#{tripMobileView.searchVO.fromTown.display}" var="fromTown" />
+                <c:set value="#{tripMobileView.searchVO.toTown.display}" var="toTown" />
                 
                 <pm:field>
                     <p:commandButton process="@this"

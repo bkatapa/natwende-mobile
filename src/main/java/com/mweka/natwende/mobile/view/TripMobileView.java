@@ -193,7 +193,7 @@ public class TripMobileView extends MessageHelper {
         try {
             searchResultList = tripMobileService.searchTrips(searchVO);
             RequestContext.getCurrentInstance().update("tripList-page");
-            RequestContext.getCurrentInstance().execute("PrimeFaces.Mobile.navigate('#tripList-page', {reverse: false, transition: 'slidedown'});");
+            RequestContext.getCurrentInstance().execute("PrimeFaces.Mobile.navigate('#tripList-page', {reverse: false, transition: 'slideup'});");
         }
         catch (Exception ex) {
             //ex.printStackTrace();
@@ -248,7 +248,7 @@ public class TripMobileView extends MessageHelper {
         if (event.getObject() == null) {
             return;
         }
-        Town selectedTown = (Town) event.getObject();
+        Town selectedTown = (Town) event.getObject(); //System.out.println("Selected town is " + selectedTown);
         if (destination) {
             searchVO.setToTown(selectedTown);
             //destination = false;
@@ -273,7 +273,11 @@ public class TripMobileView extends MessageHelper {
             }
             System.out.println("Getting busTemplate");
             busTemplate = busMobileService.fetchBusTemplateJson(busReg, busFare);
-            System.out.println(busTemplate);
+            //System.out.println(busTemplate);
+            // Deal with jQuery version conflict issues
+            if (busTemplate != null && busTemplate.contains("$")) {
+                busTemplate = busTemplate.replace("$", "jQuery_3_2_1");
+            }
         }
         catch (Exception ex) { ex.printStackTrace();
             onMessage("error", ex.getMessage());
